@@ -1,5 +1,6 @@
 var pictionary = function() {
 	var canvas, context, drawing;
+	var socket = io();
 
 	var draw = function (position) {
 		context.beginPath();
@@ -28,9 +29,13 @@ var pictionary = function() {
 		};
 		if (drawing) {
 			draw(position);
+			socket.emit('draw', position);
 		}
 	});
 
+	socket.on('draw', function(position) {
+		draw(position);
+	});
 };
 
 $(document).ready(function(){
