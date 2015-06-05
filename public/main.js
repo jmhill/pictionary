@@ -7,6 +7,7 @@ var pictionary = function() {
 		context.fill();
 	};
 
+	clearButton = $('#clear');
 	canvas = $('canvas');
 	context = canvas[0].getContext('2d');
 	canvas[0].width = canvas[0].offsetWidth;
@@ -31,6 +32,9 @@ var pictionary = function() {
 		}
 	});
 
+	clearButton.on('click', function() {
+		context.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	});
 };
 
 $(document).ready(function(){
