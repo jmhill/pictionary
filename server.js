@@ -25,7 +25,7 @@ var WORDS = [
 ];
 
 var getWord = function(wordList) {
-	var index = Math.floor(Math.random() * wordList.length);
+	var index = Math.floor(Math.random() * (wordList.length - 1));
 	return wordList[index];
 };
 
@@ -43,7 +43,7 @@ io.on('connection', function(socket) {
 
 	socket.on('claim pen', function(){
 		socket.drawer = true;
-		socket.emit('drawer');
+		socket.emit('drawer', word);
 		socket.broadcast.emit('pen claimed');
 	});
 
@@ -51,8 +51,9 @@ io.on('connection', function(socket) {
 		if (socket.drawer) {
 			console.log('A drawer disconnected');
 			socket.broadcast.emit('pen open');
+		} else {
+			console.log('A guesser disconnected');
 		}
-		console.log('A guesser disconnected');
 	});
 });
 
