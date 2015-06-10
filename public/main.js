@@ -15,7 +15,7 @@ var pictionary = function() {
 
 		console.log(guessbox.value());
 		guessbox.val('');
-	}:
+	};
 
 	guessbox = $('#guess input');
 	clearButton = $('#clear');
