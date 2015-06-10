@@ -1,5 +1,9 @@
 var pictionary = function() {
-	var canvas, context, drawing, guessbox;
+	var canvas, 
+		context, 
+		drawing, 
+		guessbox;
+
 	var socket = io();
 
 	var draw = function (position) {
@@ -9,16 +13,16 @@ var pictionary = function() {
 	};
 
 	var onKeyDown = function (event) {
-		if (event.keycode != 13) { // If NOT enter/return key
+		if (event.keyCode != 13) { // If NOT enter/return key
 			return;
 		}
 
-		console.log(guessbox.value());
+		var guess = guessbox.val();
+		console.log(guess);
+		socket.emit('guess', guess);
 		guessbox.val('');
 	};
 
-	guessbox = $('#guess input');
-	clearButton = $('#clear');
 	canvas = $('canvas');
 	context = canvas[0].getContext('2d');
 	canvas[0].width = canvas[0].offsetWidth;
@@ -48,10 +52,12 @@ var pictionary = function() {
 		draw(position);
 	});
 
+	clearButton = $('#clear');
 	clearButton.on('click', function() {
 		context.clearRect(0, 0, canvas[0].width, canvas[0].height);
 	});
 
+	guessbox = $('#guess').find('input');
 	guessbox.on('keydown', onKeyDown);
 };
 
