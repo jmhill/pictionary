@@ -20,7 +20,13 @@ var pictionary = function() {
 		var guess = guessbox.val();
 		console.log(guess);
 		socket.emit('guess', guess);
+		addGuess(guess);
 		guessbox.val('');
+	};
+
+	var addGuess = function(guess) {
+		var guesses = guessList.text();
+		guessList.text(guesses + guess + ', ');
 	};
 
 	canvas = $('canvas');
@@ -59,6 +65,9 @@ var pictionary = function() {
 
 	guessbox = $('#guess').find('input');
 	guessbox.on('keydown', onKeyDown);
+
+	guessList = $('#guess-list');
+	socket.on('guess', addGuess);
 };
 
 $(document).ready(function(){
