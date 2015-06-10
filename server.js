@@ -29,8 +29,15 @@ var getWord = function(wordList) {
 	return wordList[index];
 };
 
+var clientNumber = 0;
+
 io.on('connection', function(socket) {
-	console.log('New client connected');
+	clientNumber++;
+	socket.clientNumber = clientNumber;
+	if (socket.clientNumber === 1) {
+		socket.emit('drawer');
+	}
+	console.log('New client number ' + socket.clientNumber + ' connected');
 	socket.on('draw', function(position) {
 		socket.broadcast.emit('draw', position);
 	});

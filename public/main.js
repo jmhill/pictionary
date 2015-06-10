@@ -1,6 +1,7 @@
 var pictionary = function() {
 	var canvas, 
-		context, 
+		context,
+		drawer, 
 		drawing, 
 		guessbox;
 
@@ -35,7 +36,9 @@ var pictionary = function() {
 	canvas[0].height = canvas[0].offsetHeight;
 	
 	canvas.on('mousedown', function() {
-		drawing = true;
+		if (drawer) {
+			drawing = true;
+		}
 	});
 
 	canvas.on('mouseup', function() {
@@ -68,6 +71,10 @@ var pictionary = function() {
 
 	guessList = $('#guess-list');
 	socket.on('guess', addGuess);
+
+	socket.on('drawer', function() {
+		drawer = true;
+	});
 };
 
 $(document).ready(function(){
