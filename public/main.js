@@ -72,8 +72,11 @@ var pictionary = function() {
 	guessList = $('#guess-list');
 	socket.on('guess', addGuess);
 
-	socket.on('drawer', function() {
+	wordToDraw = $('#word');
+	socket.on('drawer', function(word) {
 		drawer = true;
+		wordToDraw.text('You\'re the drawer. Draw a ' + word + '!').css('display', 'block');
+		$('#guess').hide();
 	});
 };
 

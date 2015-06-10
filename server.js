@@ -34,8 +34,9 @@ var clientNumber = 0;
 io.on('connection', function(socket) {
 	clientNumber++;
 	socket.clientNumber = clientNumber;
+	var word = getWord(WORDS);
 	if (socket.clientNumber === 1) {
-		socket.emit('drawer');
+		socket.emit('drawer', word);
 	}
 	console.log('New client number ' + socket.clientNumber + ' connected');
 	socket.on('draw', function(position) {
