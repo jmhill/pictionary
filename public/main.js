@@ -72,6 +72,20 @@ var pictionary = function() {
 	guessList = $('#guess-list');
 	socket.on('guess', addGuess);
 
+	claimButton = $('#claim').find('button');
+	claimButton.on('click', function() {
+		socket.emit('claim pen');
+		claimButton.hide();
+	});
+
+	socket.on('pen claimed', function() {
+		claimButton.hide();
+	});
+
+	socket.on('pen open', function() {
+		claimButton.show();
+	});
+	
 	wordToDraw = $('#word');
 	socket.on('drawer', function(word) {
 		drawer = true;

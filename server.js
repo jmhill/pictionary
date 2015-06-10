@@ -29,21 +29,30 @@ var getWord = function(wordList) {
 	return wordList[index];
 };
 
-var clientNumber = 0;
-
 io.on('connection', function(socket) {
-	clientNumber++;
-	socket.clientNumber = clientNumber;
 	var word = getWord(WORDS);
-	if (socket.clientNumber === 1) {
-		socket.emit('drawer', word);
-	}
-	console.log('New client number ' + socket.clientNumber + ' connected');
+	console.log('New client connected');
+	
 	socket.on('draw', function(position) {
 		socket.broadcast.emit('draw', position);
 	});
+	
 	socket.on('guess', function(guess) {
 		socket.broadcast.emit('guess', guess);
+	});
+
+	socket.on('claim pen', function(){
+		socket.drawer = true;
+		socket.emit('drawer');
+		socket.broadcast.emit('pen claimed');
+	});
+
+	socket.on('disconnect', function() {
+		if (socket.drawer) {
+			console.log('A drawer disconnected');
+			socket.broadcast.emit('pen open');
+		}
+		console.log('A guesser disconnected');
 	});
 });
 
