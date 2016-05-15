@@ -1,3 +1,6 @@
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+var port = process.env.PORT || 8080;
+
 var http = require('http');
 var express = require('express');
 var socket_io = require('socket.io');
@@ -32,11 +35,11 @@ var getWord = function(wordList) {
 io.on('connection', function(socket) {
 	var word = getWord(WORDS);
 	console.log('New client connected');
-	
+
 	socket.on('draw', function(position) {
 		socket.broadcast.emit('draw', position);
 	});
-	
+
 	socket.on('guess', function(guess) {
 		socket.broadcast.emit('guess', guess);
 	});
@@ -57,4 +60,4 @@ io.on('connection', function(socket) {
 	});
 });
 
-server.listen(8080);
+server.listen(port);
