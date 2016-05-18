@@ -13,13 +13,13 @@ module.exports = function(socket) {
 	});
 
 	socket.on('claim pen', function(){
-		socket.drawer = true;
+		socket.isInDrawMode = true;
 		socket.emit('drawer', word);
 		socket.broadcast.emit('pen claimed');
 	});
 
 	socket.on('disconnect', function() {
-		if (socket.drawer) {
+		if (socket.isInDrawMode) {
 			console.log('A drawer disconnected');
 			socket.broadcast.emit('pen open');
 		} else {
