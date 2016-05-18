@@ -1,15 +1,14 @@
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 var port = process.env.PORT || 8080;
 
-var http = require('http');
 var express = require('express');
-var socket_io = require('socket.io');
-
 var app = express();
-app.use(express.static('public'));
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 var game = require('./game');
 
+app.use(express.static('public'));
 
 io.on('connection', function(socket) {
 	var word = game.getWord();
