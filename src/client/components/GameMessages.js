@@ -5,7 +5,7 @@ export default class GameMessages extends React.Component {
     return (
       <div id="top-message">
         <div>
-          <button id="claim">I want to draw!</button>
+          <button onClick={this.requestDrawingPriveleges.bind(this)}>I want to draw!</button>
         </div>
         <div>
           Make a guess: <input id="guess" type="text" />
@@ -14,5 +14,9 @@ export default class GameMessages extends React.Component {
         <div id="guess-list">Guesses: </div>
       </div>
     );
+  }
+
+  requestDrawingPriveleges() {
+    this.props.onDrawRequest();
   }
 }

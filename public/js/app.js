@@ -19284,7 +19284,13 @@ var DrawingArea = function (_React$Component) {
   function DrawingArea() {
     _classCallCheck(this, DrawingArea);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(DrawingArea).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DrawingArea).call(this));
+
+    _this.state = {
+      isDrawing: false,
+      context: null
+    };
+    return _this;
   }
 
   _createClass(DrawingArea, [{
@@ -19293,13 +19299,61 @@ var DrawingArea = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
-        _react2.default.createElement("canvas", { id: "canvas" }),
+        _react2.default.createElement("canvas", {
+          width: "800",
+          height: "600",
+          ref: "canvas",
+          onMouseDown: this.startDrawing.bind(this),
+          onMouseUp: this.stopDrawing.bind(this),
+          onMouseMove: this.draw.bind(this)
+        }),
         _react2.default.createElement(
           "button",
-          { id: "clear" },
+          { onClick: this.clearCanvas.bind(this) },
           "Clear Canvas"
         )
       );
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var context = this.refs.canvas.getContext('2d');
+      this.setState({ context: context });
+    }
+  }, {
+    key: "draw",
+    value: function draw(event) {
+      var position = {
+        x: event.pageX - this.refs.canvas.offsetLeft,
+        y: event.pageY - this.refs.canvas.offsetTop
+      };
+      if (this.state.isDrawing) {
+        this._draw(position);
+        this.props.socket.emit('draw', position);
+      }
+    }
+  }, {
+    key: "_draw",
+    value: function _draw(position) {
+      var context = this.state.context;
+      context.beginPath();
+      context.arc(position.x, position.y, 6, 0, 2 * Math.PI);
+      context.fill();
+    }
+  }, {
+    key: "startDrawing",
+    value: function startDrawing() {
+      this.setState({ isDrawing: true });
+    }
+  }, {
+    key: "stopDrawing",
+    value: function stopDrawing() {
+      this.setState({ isDrawing: false });
+    }
+  }, {
+    key: "clearCanvas",
+    value: function clearCanvas() {
+      context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
     }
   }]);
 
@@ -19349,7 +19403,7 @@ var GameMessages = function (_React$Component) {
           null,
           _react2.default.createElement(
             "button",
-            { id: "claim" },
+            { onClick: this.requestDrawingPriveleges.bind(this) },
             "I want to draw!"
           )
         ),
@@ -19366,6 +19420,11 @@ var GameMessages = function (_React$Component) {
           "Guesses: "
         )
       );
+    }
+  }, {
+    key: "requestDrawingPriveleges",
+    value: function requestDrawingPriveleges() {
+      this.props.onDrawRequest();
     }
   }]);
 
@@ -19403,13 +19462,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var socket = io();
+
 var PictionaryApp = function (_React$Component) {
   _inherits(PictionaryApp, _React$Component);
 
   function PictionaryApp() {
     _classCallCheck(this, PictionaryApp);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(PictionaryApp).call(this));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PictionaryApp).call(this));
+
+    _this.state = {
+      canDraw: false
+    };
+    return _this;
   }
 
   _createClass(PictionaryApp, [{
@@ -19418,9 +19484,16 @@ var PictionaryApp = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_GameMessages2.default, null),
-        _react2.default.createElement(_DrawingArea2.default, null)
+        _react2.default.createElement(_GameMessages2.default, { onDrawRequest: this.handleDrawRequest.bind(this) }),
+        _react2.default.createElement(_DrawingArea2.default, {
+          userCanDraw: this.state.canDraw,
+          socket: socket })
       );
+    }
+  }, {
+    key: 'handleDrawRequest',
+    value: function handleDrawRequest() {
+      this.setState({ canDraw: true });
     }
   }]);
 
