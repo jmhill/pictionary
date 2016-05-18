@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import GameMessages from './components/GameMessages';
+import DrawingArea from './components/DrawingArea';
+
 class PictionaryApp extends React.Component {
   constructor() {
     super();
@@ -10,7 +13,8 @@ class PictionaryApp extends React.Component {
   render() {
     return (
       <div>
-        <p>Hello React</p>
+        <GameMessages />
+        <DrawingArea />
       </div>
     );
   }
