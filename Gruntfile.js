@@ -83,7 +83,7 @@ module.exports = function(grunt) {
           transform: ["babelify"]
         },
         files: {
-          "./public/js/index.js": ["./src/client/app.js"]
+          "./public/js/app.js": ["./src/client/index.js"]
         }
       }
     },
