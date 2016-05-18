@@ -19,7 +19,8 @@ module.exports = function(grunt) {
         options: {
           ext:'js, html',
           watch: [
-            'server.js'
+            'server.js',
+            'socketEvents/**/*.js'
           ]
         }
       },
@@ -38,7 +39,8 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: [
-          'server.js'
+          'server.js',
+          'socketEvents/**/*.js'
         ],
         tasks: ['jshint']
       },
