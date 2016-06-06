@@ -19359,7 +19359,7 @@ var DrawingArea = function (_React$Component) {
   }, {
     key: "clearCanvas",
     value: function clearCanvas() {
-      context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
+      this.state.context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
     }
   }]);
 

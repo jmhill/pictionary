@@ -65,7 +65,7 @@ export default class DrawingArea extends React.Component {
   }
 
   clearCanvas() {
-    context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
+    this.state.context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
   }
 
 }
