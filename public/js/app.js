@@ -19318,10 +19318,12 @@ var DrawingArea = function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var context = this.refs.canvas.getContext('2d');
+      var self = this;
+
       this.setState({ context: context });
 
       this.props.socket.on('draw', function (position) {
-        this._draw(position).bind(this);
+        self._draw(position);
       });
     }
   }, {

@@ -29,10 +29,12 @@ export default class DrawingArea extends React.Component {
 
   componentDidMount() {
     let context = this.refs.canvas.getContext('2d');
+    let self = this;
+    
     this.setState({context});
-
+    
     this.props.socket.on('draw', function(position) {
-      this._draw(position).bind(this);
+      self._draw(position);
     });
   }
 
