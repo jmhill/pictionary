@@ -19409,10 +19409,26 @@ var GameMessages = function (_React$Component) {
   function GameMessages() {
     _classCallCheck(this, GameMessages);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameMessages).call(this));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GameMessages).call(this));
+
+    _this.state = {
+      currrentGameWord: null
+    };
+    return _this;
   }
 
   _createClass(GameMessages, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var self = this;
+
+      this.props.socket.on('drawer', function (word) {
+        self.setState({
+          currentGameWord: word
+        });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -19421,6 +19437,7 @@ var GameMessages = function (_React$Component) {
         _react2.default.createElement(_GameStatusControls2.default, {
           onDrawRequest: this.props.onDrawRequest
         }),
+        this.state.currentGameWord,
         _react2.default.createElement(_Guessbox2.default, null),
         _react2.default.createElement(_GuessList2.default, null)
       );
@@ -19631,10 +19648,14 @@ var PictionaryApp = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_GameInterface2.default, { onDrawRequest: this.handleDrawRequest.bind(this) }),
+        _react2.default.createElement(_GameInterface2.default, {
+          onDrawRequest: this.handleDrawRequest.bind(this),
+          socket: socket
+        }),
         _react2.default.createElement(_DrawingArea2.default, {
           userCanDraw: this.state.canDraw,
-          socket: socket })
+          socket: socket
+        })
       );
     }
   }, {

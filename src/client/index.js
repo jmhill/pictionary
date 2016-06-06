@@ -17,10 +17,14 @@ class PictionaryApp extends React.Component {
   render() {
     return (
       <div>
-        <GameInterface onDrawRequest={this.handleDrawRequest.bind(this)} />
+        <GameInterface 
+          onDrawRequest={this.handleDrawRequest.bind(this)}
+          socket={socket} 
+        />
         <DrawingArea
           userCanDraw={this.state.canDraw}
-          socket={socket} />
+          socket={socket} 
+        />
       </div>
     );
   }
