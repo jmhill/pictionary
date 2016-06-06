@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import GameMessages from './components/GameMessages';
+import GameInterface from './components/GameInterface';
 import DrawingArea from './components/DrawingArea';
 
 const socket = io();
@@ -11,13 +11,13 @@ class PictionaryApp extends React.Component {
     super();
     this.state = {
       canDraw: false
-    }
+    };
   }
 
   render() {
     return (
       <div>
-        <GameMessages onDrawRequest={this.handleDrawRequest.bind(this)} />
+        <GameInterface onDrawRequest={this.handleDrawRequest.bind(this)} />
         <DrawingArea
           userCanDraw={this.state.canDraw}
           socket={socket} />

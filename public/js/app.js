@@ -19319,6 +19319,10 @@ var DrawingArea = function (_React$Component) {
     value: function componentDidMount() {
       var context = this.refs.canvas.getContext('2d');
       this.setState({ context: context });
+
+      this.props.socket.on('draw', function (position) {
+        this._draw(position).bind(this);
+      });
     }
   }, {
     key: "draw",
@@ -19363,6 +19367,123 @@ var DrawingArea = function (_React$Component) {
 exports.default = DrawingArea;
 
 },{"react":166}],168:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Guessbox = require('./Guessbox');
+
+var _Guessbox2 = _interopRequireDefault(_Guessbox);
+
+var _GuessList = require('./GuessList');
+
+var _GuessList2 = _interopRequireDefault(_GuessList);
+
+var _GameStatusControls = require('./GameStatusControls');
+
+var _GameStatusControls2 = _interopRequireDefault(_GameStatusControls);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GameMessages = function (_React$Component) {
+  _inherits(GameMessages, _React$Component);
+
+  function GameMessages() {
+    _classCallCheck(this, GameMessages);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameMessages).call(this));
+  }
+
+  _createClass(GameMessages, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'top-message' },
+        _react2.default.createElement(_GameStatusControls2.default, {
+          onDrawRequest: this.props.onDrawRequest
+        }),
+        _react2.default.createElement(_Guessbox2.default, null),
+        _react2.default.createElement(_GuessList2.default, null)
+      );
+    }
+  }]);
+
+  return GameMessages;
+}(_react2.default.Component);
+
+exports.default = GameMessages;
+
+},{"./GameStatusControls":169,"./GuessList":170,"./Guessbox":171,"react":166}],169:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GameStatusControls = function (_React$Component) {
+  _inherits(GameStatusControls, _React$Component);
+
+  function GameStatusControls() {
+    _classCallCheck(this, GameStatusControls);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameStatusControls).call(this));
+  }
+
+  _createClass(GameStatusControls, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'button',
+          { onClick: this.requestDrawingPriveleges.bind(this) },
+          'I want to draw!'
+        )
+      );
+    }
+  }, {
+    key: 'requestDrawingPriveleges',
+    value: function requestDrawingPriveleges() {
+      this.props.onDrawRequest();
+    }
+  }]);
+
+  return GameStatusControls;
+}(_react2.default.Component);
+
+exports.default = GameStatusControls;
+
+},{"react":166}],170:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19383,57 +19504,79 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var GameMessages = function (_React$Component) {
-  _inherits(GameMessages, _React$Component);
+var GuessList = function (_React$Component) {
+  _inherits(GuessList, _React$Component);
 
-  function GameMessages() {
-    _classCallCheck(this, GameMessages);
+  function GuessList() {
+    _classCallCheck(this, GuessList);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(GameMessages).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(GuessList).call(this));
   }
 
-  _createClass(GameMessages, [{
+  _createClass(GuessList, [{
     key: "render",
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { id: "top-message" },
-        _react2.default.createElement(
-          "div",
-          null,
-          _react2.default.createElement(
-            "button",
-            { onClick: this.requestDrawingPriveleges.bind(this) },
-            "I want to draw!"
-          )
-        ),
-        _react2.default.createElement(
-          "div",
-          null,
-          "Make a guess: ",
-          _react2.default.createElement("input", { id: "guess", type: "text" })
-        ),
-        _react2.default.createElement("div", { id: "word" }),
-        _react2.default.createElement(
-          "div",
-          { id: "guess-list" },
-          "Guesses: "
-        )
+        { id: "guess-list" },
+        "Guesses: "
       );
-    }
-  }, {
-    key: "requestDrawingPriveleges",
-    value: function requestDrawingPriveleges() {
-      this.props.onDrawRequest();
     }
   }]);
 
-  return GameMessages;
+  return GuessList;
 }(_react2.default.Component);
 
-exports.default = GameMessages;
+exports.default = GuessList;
 
-},{"react":166}],169:[function(require,module,exports){
+},{"react":166}],171:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Guessbox = function (_React$Component) {
+  _inherits(Guessbox, _React$Component);
+
+  function Guessbox() {
+    _classCallCheck(this, Guessbox);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Guessbox).call(this));
+  }
+
+  _createClass(Guessbox, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        "Make a guess: ",
+        _react2.default.createElement("input", { id: "guess", type: "text" })
+      );
+    }
+  }]);
+
+  return Guessbox;
+}(_react2.default.Component);
+
+exports.default = Guessbox;
+
+},{"react":166}],172:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -19446,9 +19589,9 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _GameMessages = require('./components/GameMessages');
+var _GameInterface = require('./components/GameInterface');
 
-var _GameMessages2 = _interopRequireDefault(_GameMessages);
+var _GameInterface2 = _interopRequireDefault(_GameInterface);
 
 var _DrawingArea = require('./components/DrawingArea');
 
@@ -19484,7 +19627,7 @@ var PictionaryApp = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_GameMessages2.default, { onDrawRequest: this.handleDrawRequest.bind(this) }),
+        _react2.default.createElement(_GameInterface2.default, { onDrawRequest: this.handleDrawRequest.bind(this) }),
         _react2.default.createElement(_DrawingArea2.default, {
           userCanDraw: this.state.canDraw,
           socket: socket })
@@ -19502,4 +19645,4 @@ var PictionaryApp = function (_React$Component) {
 
 _reactDom2.default.render(_react2.default.createElement(PictionaryApp, null), document.getElementById('react-app'));
 
-},{"./components/DrawingArea":167,"./components/GameMessages":168,"react":166,"react-dom":1}]},{},[169]);
+},{"./components/DrawingArea":167,"./components/GameInterface":168,"react":166,"react-dom":1}]},{},[172]);
