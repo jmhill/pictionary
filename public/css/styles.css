@@ -21,8 +21,6 @@ h1 {
 }
 
 canvas {
-    width: 800px;
-    height: 600px;
     border: 1px #C7CACD solid;
     display: block;
     margin: 0 auto;

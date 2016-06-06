@@ -11,26 +11,16 @@
   <!-- JS -->
   <script src="//code.jquery.com/jquery-2.1.0.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="main.js"></script>
 </head>
 
 <body>
 
   <div id="main">
-    <h1>qwiktionary</h1>
-    <div id="top-message">
-      <div>
-        <button id="claim">I want to draw!</button>
-      </div>
-      <div style="display: block">
-        Make a guess: <input id="guess" type="text">
-      </div>
-      <div id="word" style="display: none"></div>
-      <div id="guess-list">Guesses: </div>
-    </div>
 
-    <canvas id="canvas"></canvas>
-    <button id="clear">Clear Canvas</button>
+    <h1>qwiktionary</h1>
+    <div id="react-app"></div>
+
   </div>
 
+  <script src="/js/app.js"></script>
 </body>
