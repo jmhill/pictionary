@@ -37,14 +37,16 @@ export default class DrawingArea extends React.Component {
   }
 
   draw(event) {
-		let position = {
-			x: event.pageX - this.refs.canvas.offsetLeft,
-			y: event.pageY - this.refs.canvas.offsetTop
-		};
-		if (this.state.isDrawing) {
-			this._draw(position);
-			this.props.socket.emit('draw', position);
-		}
+    if (this.props.userCanDraw) {
+      let position = {
+        x: event.pageX - this.refs.canvas.offsetLeft,
+        y: event.pageY - this.refs.canvas.offsetTop
+      };
+      if (this.state.isDrawing) {
+        this._draw(position);
+        this.props.socket.emit('draw', position);
+      }
+    }
   }
 
   _draw(position) {

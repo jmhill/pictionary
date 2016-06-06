@@ -26,7 +26,8 @@ class PictionaryApp extends React.Component {
   }
 
   handleDrawRequest() {
-    this.setState({canDraw: true})
+    this.setState({canDraw: true});
+    socket.emit('claim pen');
   }
 }
 
