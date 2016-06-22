@@ -77,6 +77,15 @@ module.exports = function(grunt) {
         }
       }
     },
+    
+    jsdoc: {
+      dist: {
+        src: ['game/*.js'],
+        options: {
+          destination: 'docs'
+        }
+      }
+    },
 
     // Build Configurations
     browserify: {
