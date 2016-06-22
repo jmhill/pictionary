@@ -8,6 +8,7 @@ var io = require('socket.io')(server);
 var socketEvents = require('./socketEvents');
 
 app.use(express.static('public'));
+app.use('/docs', express.static('docs'));
 
 io.on('connection', socketEvents);
 
