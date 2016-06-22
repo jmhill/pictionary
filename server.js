@@ -7,6 +7,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var socketEvents = require('./socketEvents');
 
+var mongoose = require('./config/mongoose');
+
+var db = mongoose();
+
 app.use(express.static('public'));
 app.use('/docs', express.static('docs'));
 
