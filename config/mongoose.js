@@ -16,6 +16,7 @@ module.exports = function() {
   var db = mongoose.connect(config.db);
   
   // All model files must be required here
+  require('../api/GameInstance/GameInstance.model.js');
   
   return db;
 };
