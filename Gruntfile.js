@@ -20,6 +20,9 @@ module.exports = function(grunt) {
           ext:'js, html',
           watch: [
             'server.js',
+            'api/**/*.js',
+            'config/**/*.js',
+            'game/**/*.js',
             'socketEvents/**/*.js'
           ]
         }
@@ -30,7 +33,11 @@ module.exports = function(grunt) {
           nodeArgs: ['--debug'],
           ext: 'js, html',
           watch: [
-            'server.js'
+            'server.js',
+            'api/**/*.js',
+            'config/**/*.js',
+            'game/**/*.js',
+            'socketEvents/**/*.js'
           ]
         }
       }
