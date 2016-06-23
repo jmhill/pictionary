@@ -131,6 +131,10 @@ module.exports = function(grunt) {
     'browserify',
     'concurrent:dev'
   ]);
+  
+  grunt.registerTask('build', [
+    'browserify:dist'
+  ]);
 
   grunt.registerTask('debug', [
     'env:dev',
