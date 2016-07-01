@@ -1,13 +1,12 @@
 var config = require('./config');
 var express = require('express');
-var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
 module.exports = function() {
   var app = express();
   
   if (process.env.NODE_ENV === "development") {
-    app.use(morgan('dev'));
+    app.use(require('morgan')('dev'));
   }
   
   app.set('views', './views');
