@@ -2,7 +2,7 @@ var GameInstance = require('mongoose').model('GameInstance');
 
 exports.newGame = function(request, response, next) {
   var game = new GameInstance({
-    name: req.body.name;
+    name: request.body.name
   });
   game.save(function(err) {
     if (err) {
