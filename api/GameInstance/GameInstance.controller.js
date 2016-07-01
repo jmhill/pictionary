@@ -8,7 +8,7 @@ exports.newGame = function(request, response, next) {
     if (err) {
       return next(err);
     } else {
-      response.json(game);
+      response.redirect('/game/' + game._id);
     }
   })
 };

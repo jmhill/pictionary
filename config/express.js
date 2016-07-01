@@ -10,6 +10,9 @@ module.exports = function() {
     app.use(morgan('dev'));
   }
   
+  app.set('views', './views');
+  app.set('view engine', 'ejs');
+  
   app.use(bodyParser.urlencoded());
   app.use(bodyParser.json());
   
