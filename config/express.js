@@ -1,6 +1,7 @@
 var config = require('./config');
 var express = require('express');
 var morgan = require('morgan');
+var bodyParser = require('body-parser');
 
 module.exports = function() {
   var app = express();
@@ -8,6 +9,9 @@ module.exports = function() {
   if (process.env.NODE_ENV === "development") {
     app.use(morgan('dev'));
   }
+  
+  app.use(bodyParser.urlencoded());
+  app.use(bodyParser.json());
   
   app.use(express.static('public'));
   app.use('/docs', express.static('docs'));
