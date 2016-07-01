@@ -1,4 +1,4 @@
-var game = require('../game');
+var game = require('../game-engine');
 
 module.exports = function(socket) {
 	var word = game.getWord();

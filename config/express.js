@@ -19,7 +19,7 @@ module.exports = function() {
   app.use('/docs', express.static('docs'));
   
   // Register all routers here
-  require('../api/GameInstance')(app);
+  require('../api/game')(app);
   
   return app;
   

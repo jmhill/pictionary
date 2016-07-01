@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
 /**
  * @constructor
  */
-var GameInstanceSchema = new Schema({
+var GameSchema = new Schema({
   name: String,
   players: [{
     name: String,
@@ -17,4 +17,4 @@ var GameInstanceSchema = new Schema({
   currentWord: String
 });
 
-module.exports = mongoose.model('GameInstance', GameInstanceSchema);
+module.exports = mongoose.model('Game', GameSchema);

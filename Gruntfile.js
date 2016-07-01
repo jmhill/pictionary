@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             'server.js',
             'api/**/*.js',
             'config/**/*.js',
-            'game/**/*.js',
+            'game-engine/**/*.js',
             'socketEvents/**/*.js'
           ]
         }
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
             'server.js',
             'api/**/*.js',
             'config/**/*.js',
-            'game/**/*.js',
+            'game-engine/**/*.js',
             'socketEvents/**/*.js'
           ]
         }
