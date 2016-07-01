@@ -1,4 +1,4 @@
-var env = process.env.NODE_ENV;
+var env = process.env;
 
 module.exports = {
   db: env.MONGODB_URI
