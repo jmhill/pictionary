@@ -1,3 +1,12 @@
+var watchedFiles = [
+  'server.js',
+  'api/**/*.js',
+  'config/**/*.js',
+  'game-engine/**/*.js',
+  'socketEvents/**/*.js',
+  'public/'
+];
+
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
@@ -17,14 +26,8 @@ module.exports = function(grunt) {
       dev: {
         script: 'server.js',
         options: {
-          ext:'js, html',
-          watch: [
-            'server.js',
-            'api/**/*.js',
-            'config/**/*.js',
-            'game-engine/**/*.js',
-            'socketEvents/**/*.js'
-          ]
+          ext: 'js, html',
+          watch: watchedFiles 
         }
       },
       debug: {
@@ -32,13 +35,7 @@ module.exports = function(grunt) {
         options: {
           nodeArgs: ['--debug'],
           ext: 'js, html',
-          watch: [
-            'server.js',
-            'api/**/*.js',
-            'config/**/*.js',
-            'game-engine/**/*.js',
-            'socketEvents/**/*.js'
-          ]
+          watch: watchedFiles
         }
       }
     },
