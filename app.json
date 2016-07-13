@@ -10,7 +10,8 @@
     }
   },
   "addons": [
-
+    "mongolab",
+    "papertrail"
   ],
   "buildpacks": [
     {
