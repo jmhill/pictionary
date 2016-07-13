@@ -19,6 +19,8 @@ class PictionaryApp extends React.Component {
   }
   
   componentDidMount() {
+    console.log("App mounted with gameId: " + this.props.gameId);
+    socket.emit('app:init', this.props.gameId);
     // All of our socket listeners go here.
     socket.on('game:start', this._beginGame.bind(this));
     socket.on('game:guess', this._receiveGuess.bind(this));
@@ -72,4 +74,4 @@ class PictionaryApp extends React.Component {
   }
 }
 
-ReactDOM.render(<PictionaryApp />, document.getElementById('react-app'));
+ReactDOM.render(<PictionaryApp gameId={window.gameId} />, document.getElementById('react-app'));

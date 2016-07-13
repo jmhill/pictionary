@@ -1,24 +1,31 @@
 var game = require('../game-engine');
 
 module.exports = function(socket) {
-  
   console.log('New client connected');
+  
+  var room;
+  
+  // Initialize the socket to place user in a room that matches the gameId.
+  socket.on('app:init', function(gameId) {
+    room = gameId;
+    socket.join(room);
+  });
   
   // Initialize a new game
   socket.on('game:start', function() {
     var word = game.getWord();
     socket.emit('game:start', word, true);
-    socket.broadcast.emit('game:start', null, false);
+    socket.broadcast.to(room).emit('game:start', null, false);
   });
   
   // Server recceives a new guess
   socket.on('game:guess', function(guess) {
-    socket.broadcast.emit('game:guess', guess);
+    socket.broadcast.to(room).emit('game:guess', guess);
   })
   
   // Server receives drawing data
   socket.on('game:draw', function(position) {
-    socket.broadcast.emit('game:draw', position);
+    socket.broadcast.to(room).emit('game:draw', position);
   });
 
   // If a player drops, needs to handle sending updates to other players:
