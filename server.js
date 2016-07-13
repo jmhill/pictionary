@@ -14,3 +14,4 @@ var socketEvents = require('./socketEvents');
 io.on('connection', socketEvents);
 
 server.listen(port);
+console.log("Server listening at port: ", port);
