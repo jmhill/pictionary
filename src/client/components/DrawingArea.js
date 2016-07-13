@@ -4,8 +4,8 @@ export default class DrawingArea extends React.Component {
   constructor() {
     super();
     this.state = {
-      isDrawing: false,
-      context: null
+      context: null,
+      isDrawing: false
     };
   }
 
@@ -26,16 +26,27 @@ export default class DrawingArea extends React.Component {
       </div>
     );
   }
-
+  
+  // In order to interact with the canvas, we have to store a reference in the
+  // React Component. For now, we get the canvas context once when the component
+  // first mounts and store it in the component state; not sure if this is the 
+  // best way to do it but it works for now.
   componentDidMount() {
     let context = this.refs.canvas.getContext('2d');
-    let self = this;
-    
     this.setState({context});
+  }
+  
+  // The parent app component has a state property that holds the last received
+  // draw event coordinate (delivered via socket.io). When the state updates,
+  // it passes down that coordinate as prop to the drawing area.
+  componentDidUpdate(previousProps, previousState) {
+    console.log("drawing area updated");
     
-    this.props.socket.on('draw', function(position) {
-      self._draw(position);
-    });
+    // Check to see if the application state has a last coordinate.
+    // If so, draw that last coordinate.
+    if (previousProps.onReceivedDrawing != null) {
+      this._draw(previousProps.onReceivedDrawing);
+    }
   }
 
   draw(event) {
@@ -46,7 +57,7 @@ export default class DrawingArea extends React.Component {
       };
       if (this.state.isDrawing) {
         this._draw(position);
-        this.props.socket.emit('draw', position);
+        this.props.onDraw(position);
       }
     }
   }

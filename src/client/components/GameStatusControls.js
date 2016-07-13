@@ -8,12 +8,8 @@ export default class GameStatusControls extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.requestDrawingPriveleges.bind(this)}>I want to draw!</button>
+        <button onClick={this.props.onDrawRequest}>I want to draw!</button>
       </div>
     );
-  }
-  
-  requestDrawingPriveleges() {
-    this.props.onDrawRequest();
   }
 }
