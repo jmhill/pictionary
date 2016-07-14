@@ -70,6 +70,8 @@ class PictionaryApp extends React.Component {
           onGuessSubmit={this.handleGuessSubmit.bind(this)}
           word={this.state.word}
           guesses={this.state.guesses}
+          isGameInProgress={this.state.gameInProgress}
+          isDrawer={this.state.isDrawer}
         />
         <DrawingArea
           userCanDraw={this.state.isDrawer}
