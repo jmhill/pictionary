@@ -4,7 +4,7 @@ import Guessbox from './Guessbox';
 import GuessList from './GuessList';
 import GameStatusControls from './GameStatusControls';
 
-export default class GameMessages extends React.Component {
+export default class GameInterface extends React.Component {
   constructor() {
     super();
   }
@@ -16,8 +16,12 @@ export default class GameMessages extends React.Component {
           onDrawRequest={this.props.onDrawRequest}
          />
          {this.props.word}
-        <Guessbox />
-        <GuessList />
+        <Guessbox 
+          submitGuess={this.props.onGuessSubmit}
+        />
+        <GuessList
+          guesses={this.props.guesses}
+         />
       </div>
     );
   }

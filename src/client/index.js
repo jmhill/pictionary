@@ -32,9 +32,9 @@ class PictionaryApp extends React.Component {
   }
   
   _receiveGuess(guess) {
-    let {guesses} = this.state;
+    let guesses = this.state.guesses.slice();
     guesses.push(guess);
-    this.setState({guesses});
+    this.setState({guesses: guesses});
   }
   
   _receiveDrawing(position) {
@@ -52,8 +52,14 @@ class PictionaryApp extends React.Component {
     socket.emit('game:draw', position);
   }
   
-  handleGuessSubmit() {
-    socket.emit('game:guess');
+  handleGuessSubmit(guess) {
+    console.log("New guess submitted: " + guess);
+    console.log("Sending guess to server");
+    
+    let guesses = this.state.guesses.slice();
+    guesses.push(guess);
+    this.setState({guesses: guesses});
+    socket.emit('game:guess', guess);
   }
 
   render() {
@@ -63,6 +69,7 @@ class PictionaryApp extends React.Component {
           onDrawRequest={this.handleDrawRequest.bind(this)}
           onGuessSubmit={this.handleGuessSubmit.bind(this)}
           word={this.state.word}
+          guesses={this.state.guesses}
         />
         <DrawingArea
           userCanDraw={this.state.isDrawer}
