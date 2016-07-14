@@ -22,10 +22,11 @@ export default class Guessbox extends React.Component {
     
   render() {
     return (
-      <div>
-        Make a guess: <input 
+      <div className="messages">
+        Make a guess: <input className="guess"
           onKeyUp={this.handleKeyUp.bind(this)}
           type="text" 
+          placeholder="Type your guess here and press enter"
         />
       </div>
     );

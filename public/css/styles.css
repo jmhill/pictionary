@@ -1,24 +1,46 @@
-* {
-    box-sizing: border-box;
+
+
+.header {
+    padding-top: 5rem;
+    text-align: center;
 }
 
-body {
+.control {
+    margin: auto;
+    width: 25%;
+}
+
+.messages {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.guess {
+    width: 400px;
+}
+
+/** {
+    box-sizing: border-box;
+}*/
+
+/*body {
     color: #1E2835;
     background-color: #F8F8F8;
     font-size: 1.5em;
-}
+}*/
 
-h1 {
+/*h1 {
     background-color: #9ABBFF;
     margin:  0 0 20px 0;
     padding: 20px;
     text-align: center;
-}
+}*/
 
-#top-message {
+/*#top-message {
     text-align: center;
     padding: 10px;
-}
+}*/
 
 canvas {
     border: 1px #C7CACD solid;
@@ -26,7 +48,7 @@ canvas {
     margin: 0 auto;
 }
 
-#clear {
+/*#clear {
     margin: 0 auto;
     display: block;
-}
+}*/

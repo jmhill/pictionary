@@ -12,7 +12,6 @@ export default class DrawingArea extends React.Component {
   render() {
     return (
       <div>
-
         <canvas
           width="800"
           height="600"
@@ -21,8 +20,9 @@ export default class DrawingArea extends React.Component {
           onMouseUp={this.stopDrawing.bind(this)}
           onMouseMove={this.draw.bind(this)}
         ></canvas>
-
-        <button onClick={this.clearCanvas.bind(this)}>Clear Canvas</button>
+        <div className="control">
+          <button onClick={this.clearCanvas.bind(this)}>Clear Canvas</button>
+        </div>
       </div>
     );
   }

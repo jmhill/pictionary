@@ -7,7 +7,7 @@ export default class GameStatusControls extends React.Component {
   
   render() {
     return (
-      <div>
+      <div className="control">
         <button onClick={this.props.onDrawRequest}>I want to draw!</button>
       </div>
     );

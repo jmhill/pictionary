@@ -13,13 +13,15 @@ export default class GameInterface extends React.Component {
     let isDrawer = this.props.isDrawer;
     let isGameInProgress = this.props.isGameInProgress;
     return (
-      <div id="top-message">
+      <div>
         { !isGameInProgress &&
           <GameStatusControls
             onDrawRequest={this.props.onDrawRequest}
           />
         }
-        {this.props.word}
+        <div className="messages">
+          {this.props.word ? "Draw a " + this.props.word : null}
+        </div>
         { isGameInProgress && !isDrawer &&
           <Guessbox 
             submitGuess={this.props.onGuessSubmit}

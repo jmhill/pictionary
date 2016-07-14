@@ -5,23 +5,34 @@
   <meta charset="utf-8">
 
   <!-- CSS -->
+  <link rel="stylesheet" href="/css/normalize.css" />
+  <link rel="stylesheet" href="/css/skeleton.css" />
   <link rel="stylesheet" href="/css/styles.css" />
 
-  <!-- JS -->
-  <script src="//code.jquery.com/jquery-2.1.0.js"></script>
 </head>
 
 <body>
 
-  <div id="main">
-
-    <h1>qwiktionary</h1>
-    <form action="/initialize" method="POST">
-      <label for="game-name">Give your game room a name: </label>
-      <input id="game-name" name="name" type="text"></input>
-      <input type="submit" value="Create New Game"></input>
-    </form>
-
+  <div class="container">
+    <div class="header">
+      <h1>qwiktionary</h1>
+    </div>
+    <div class="row">
+      <div class="one-half column">
+        <p>Spin up a quick game of pictionary. Create a new game by entering a name to the right, and then just share the link.</p>
+      </div>
+      <div class="one-half column">
+        <form action="/initialize" method="POST">
+          <div class="row">
+            <label for="game-name">Give your game room a name: </label>
+            <input id="game-name" name="name" type="text" placeholder="e.g., My Awesome Game" class="u-full-width"></input>
+          </div>
+          <div class="row">
+            <input type="submit" value="Create New Game" class="button-primary u-full-width"></input>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
 </body>
