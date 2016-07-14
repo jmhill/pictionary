@@ -6,8 +6,16 @@ export default class GuessList extends React.Component {
   }
     
   render() {
+    console.log(this.props.guesses);
+    console.log(typeof this.props.guesses);
+    let guesses = this.props.guesses.map( (guess, index) => {
+      return (<span key={index}>{guess + ', '}</span>)
+    });
     return (
-      <div id="guess-list">Guesses: </div>
+      <div>
+        <span>Guesses: </span>
+        {guesses}
+      </div>
     );
   }
 }
