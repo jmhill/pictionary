@@ -10,18 +10,26 @@ export default class GameInterface extends React.Component {
   }
   
   render() {
+    let isDrawer = this.props.isDrawer;
+    let isGameInProgress = this.props.isGameInProgress;
     return (
       <div id="top-message">
-        <GameStatusControls
-          onDrawRequest={this.props.onDrawRequest}
-         />
-         {this.props.word}
-        <Guessbox 
-          submitGuess={this.props.onGuessSubmit}
-        />
-        <GuessList
-          guesses={this.props.guesses}
-         />
+        { !isGameInProgress &&
+          <GameStatusControls
+            onDrawRequest={this.props.onDrawRequest}
+          />
+        }
+        {this.props.word}
+        { isGameInProgress && !isDrawer &&
+          <Guessbox 
+            submitGuess={this.props.onGuessSubmit}
+          />
+        }
+        { isGameInProgress &&
+          <GuessList
+            guesses={this.props.guesses}
+          />
+        }
       </div>
     );
   }
