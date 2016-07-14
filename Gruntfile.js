@@ -7,6 +7,13 @@ var watchedFiles = [
   'public/'
 ];
 
+var watchedCSS = [
+  'public/css/*.css',
+  '!public/css/normalize.css',
+  '!public/css/skeleton.css'
+];
+  
+
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
@@ -53,7 +60,7 @@ module.exports = function(grunt) {
         tasks: ['browserify']
       },
       css: {
-        files: ['public/css/*.css'],
+        files: watchedCSS,
         tasks: ['csslint']
       }
     },
@@ -122,7 +129,7 @@ module.exports = function(grunt) {
     },
     csslint: {
       all: {
-        src: 'public/css/*.css'
+        src: watchedCSS
       }
     }
 
