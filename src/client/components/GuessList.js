@@ -12,7 +12,7 @@ export default class GuessList extends React.Component {
       return (<span key={index}>{guess + ', '}</span>)
     });
     return (
-      <div>
+      <div className="messages">
         <span>Guesses: </span>
         {guesses}
       </div>
