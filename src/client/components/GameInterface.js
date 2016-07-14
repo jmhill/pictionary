@@ -16,7 +16,9 @@ export default class GameMessages extends React.Component {
           onDrawRequest={this.props.onDrawRequest}
          />
          {this.props.word}
-        <Guessbox />
+        <Guessbox 
+          submitGuess={this.props.onGuessSubmit}
+        />
         <GuessList />
       </div>
     );

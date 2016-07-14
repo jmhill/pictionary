@@ -52,8 +52,10 @@ class PictionaryApp extends React.Component {
     socket.emit('game:draw', position);
   }
   
-  handleGuessSubmit() {
-    socket.emit('game:guess');
+  handleGuessSubmit(guess) {
+    console.log("New guess submitted: " + guess);
+    console.log("Sending guess to server");
+    socket.emit('game:guess', guess);
   }
 
   render() {
